@@ -365,51 +365,52 @@ func LogDumpGetUnique(_ logDump: String) -> String {
 
 
 
-//
-//func replaceElements(_ n: Int, _ el: Character, _ str: String) -> String {
-//  var chars = Array(str)
-//  for i in 0..<chars.count {
-//    if i%n == 2 {
-//      chars[i] == "X"
-//    }
-//  }
-//  return String(chars)
-//}
-//
-//func SearchingChallenge(_ str: String) -> String {
-//  // var resChar: Character = " "
-//  var resString: String = ""
-//  let token: String = "z268i3k1da"
-//
+
+func replaceElements(_ n: Int, _ el: Character, _ str: String) -> String {
+  var chars = Array(str)
+  for i in 0..<chars.count {
+    if i%n == 2 {
+      chars[i] == "X"
+    }
+  }
+  return String(chars)
+}
+
+func SearchingChallenge(_ str: String) -> String {
+  // var resChar: Character = " "
+  var resString: String = ""
+  let token: String = "z268i3k1da"
+
 //    token.forEach { el in
 //        print(el)
 //
 //    }
-//
-//  for char in str {
-//    if str.firstIndex(of: char) == str.lastIndex(of: char) {
-//      // resChar = char
-//      resString = "\(char)\(token)"
-//      break
+
+  for char in str {
+    if str.firstIndex(of: char) == str.lastIndex(of: char) {
+      // resChar = char
+        print(char)
+      resString = "\(char)\(token)"
+      break
+    }
+    resString = token
+  }
+
+   resString = replaceElements(3, "X", resString)
+
+//  var chars = Array(resString)
+//  for i in 0..<chars.count {
+//    if i%3 == 2 {
+//      chars[i] = "X"
 //    }
-//    resString = token
 //  }
-//
-//   resString = replaceElements(3, "X", resString)
-//
-////  var chars = Array(resString)
-////  for i in 0..<chars.count {
-////    if i%3 == 2 {
-////      chars[i] = "X"
-////    }
-////  }
-////  return String(chars)
-////    resString = changeElements(3, resString)
-//
-//   return resString
-//}
-//
-//SearchingChallenge("abcd")
+//  return String(chars)
+//    resString = changeElements(3, resString)
+
+   return resString
+}
+
+SearchingChallenge("abbcd")
 //MARK: -
 //func SearchingChallenge(_ str: String) -> String {
 //  var resString: String = ""
@@ -517,7 +518,7 @@ struct DataObject: Decodable {
 //MARK: - old Regex
 func countItems(_ str: String) -> Int {
     var result: Int = 0
-        let token = "5b3hkro2d4"
+    let token = "5b3hkro2d4"
     let jsonData = str.data(using: .utf8)!
     let dataObject: DataObject = try! JSONDecoder().decode(DataObject.self, from: jsonData)
     
@@ -526,8 +527,8 @@ func countItems(_ str: String) -> Int {
     
     var matches = ageRegex.matches(in: dataObject.data, range: ageRange)
     
-    var test = dataObject.data.ranges(of: /age=([5-9]+[\\d]+|[1-9]+[\\d]{2,20})/)
-    print(test)
+//    var test = dataObject.data.ranges(of: /age=([5-9]+[\\d]+|[1-9]+[\\d]{2,20})/)
+//    print(test)
     
     result = matches.count
 
@@ -538,7 +539,7 @@ func countItems(_ str: String) -> Int {
     return matches.count
 }
 
-//print(countItems(JSON))
+print(countItems(JSON))
 //print(countItems(json))
 
 //MARK: - new Regex!!!
@@ -553,6 +554,5 @@ func countItemsNew(_ str: String) -> Int {
 }
 
 print(countItemsNew(JSON))
-
 
 

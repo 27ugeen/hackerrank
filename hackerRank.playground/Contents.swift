@@ -1342,7 +1342,9 @@ var greeting = "Hello, playground"
 //}
 //
 //diagonalDifference(arr: [[11,2,4], [4,100,6], [10,8,-12]])
-//MARK: -
+
+//MARK: - Strings
+
 //func superReducedString(s: String) -> String {
 //    var res = "Empty String"
 //    var strArr = Array(s)
@@ -1377,3 +1379,397 @@ var greeting = "Hello, playground"
 //
 //superReducedString(s: "abba1fsdzffgff")
 
+//MARK: -
+//func camelCase(_ s: String) -> Int {
+//    if s == "" {
+//        return 0
+//    }
+//
+//    let sArr = Array(s)
+//    var res = 0
+//
+//    res = sArr.filter { $0.isUppercase == true }.count + 1
+//
+//    return res
+//}
+//
+//camelCase("oneTwoThree")
+
+//MARK: -
+//func minimumNumber(n: Int, password: String) -> Int {
+//    var count = 0
+//    let range = NSRange(location: 0, length: n)
+//
+//    let numRegex = try! NSRegularExpression(pattern: "[0-9]")
+//    let numMatches = numRegex.matches(in: password, range: range)
+//
+//    let lowRegex = try! NSRegularExpression(pattern: "[a-z]")
+//    let lowMatches = lowRegex.matches(in: password, range: range)
+//
+//    let upRegex = try! NSRegularExpression(pattern: "[A-Z]")
+//    let upMatches = upRegex.matches(in: password, range: range)
+//
+//    let specRegex = try! NSRegularExpression(pattern: "[!@#$%^&*()+-]") // "+-" or "-+" matter
+//    let specMatches = specRegex.matches(in: password, range: range)
+//
+//    if numMatches.isEmpty {
+//        count += 1
+//    }
+//
+//    if lowMatches.isEmpty {
+//        count += 1
+//    }
+//
+//    if upMatches.isEmpty {
+//        count += 1
+//    }
+//
+//    if specMatches.isEmpty {
+//        count += 1
+//    }
+//
+//    if n + count < 6 {
+//        count = 6 - n
+//    }
+//
+//    return count
+//}
+//
+//minimumNumber(n: 7, password: "AUzs-nV")
+
+//MARK: - Two Characters
+//func removeDouble(_ s: String) -> String {
+//    var sArr = Array(s)
+//    var c = 0
+//    var resStr = ""
+//
+//    for _ in 0..<sArr.count {
+//        if sArr[c] == sArr[c + 1] {
+//            var tempArr = sArr.filter { $0 != sArr[c] }
+//            let diffLength = sArr.count - tempArr.count
+//            sArr = tempArr
+//            c -= diffLength
+//            continue
+//        }
+//
+//        c += 1
+//
+//        if c == -1 && !sArr.isEmpty {
+//            c += 1
+//        }
+//    }
+//
+//    resStr = String(sArr)
+//
+//    if resStr.count == 2 && resStr.first == resStr.last {
+//        resStr = ""
+//    }
+//
+//    return resStr
+//}
+//
+//func alternate(_ s: String) -> Int {
+//    var resStr = ""
+//
+//    let tempStr = removeDouble(s)
+//
+//    if tempStr.count == 0 {
+//        return 0
+//    }
+//
+//    for char in tempStr {
+//      if tempStr.firstIndex(of: char) != tempStr.lastIndex(of: char) {
+//          resStr += String(char)
+//      }
+//    }
+//
+//    resStr = removeDouble(tempStr)
+//
+//    return resStr.count
+//}
+
+//func isValidStr(_ s: String) -> Bool {
+//    if s.count == 1 {
+//        return false
+//    }
+//
+//    var sArr = Array(s)
+//
+//    for i in 1..<sArr.count {
+//        if sArr[i] == sArr[i - 1] {
+//            return false
+//        }
+//    }
+//
+//    return true
+//}
+
+//func alternate(_ s: String) -> Int {
+//    var sArr = Array(s)
+//    var c = 0
+//    var resStr = ""
+//
+//    for _ in 0..<sArr.count - 1 {
+//        if sArr[c] == sArr[c + 1] {
+//            var tempArr = sArr.filter { $0 != sArr[c] }
+//            let diffLength = sArr.count - tempArr.count
+//            sArr = tempArr
+//            c -= diffLength
+//            continue
+//        }
+//
+//        c += 1
+//
+//        if c == -1 && !sArr.isEmpty {
+//            c += 1
+//        }
+//    }
+//
+//    var tempStr = String(sArr)
+//
+//    for char in tempStr {
+//          if tempStr.firstIndex(of: char) != tempStr.lastIndex(of: char) {
+//              resStr += String(char)
+//          }
+//        }
+//
+//
+//    if isValidStr(resStr) {
+//        return resStr.count
+//    } else {
+//        return 0
+//    }
+//}
+
+
+//alternate("asvkugfiugsalddlasguifgukvsa")
+//alternate("asdcbsdcagfsdbgdfanfghbsfdab")
+//alternate("beabeefeab")
+
+//=========!!!!!!!===========
+//func alternate(_ s: String) -> Int {
+//    let NUM_LETTERS : Int = 26;
+//    // Save input
+//    let length : Int = s.count
+//    let str : String = s
+//    // Edge case
+//    if (length <= 1) {
+//        return 0
+//    }
+//    // Create arrays representing the 26^2 subproblems
+//    var table = [[Int]](repeating: [Int](repeating: 0, count: 26), count: 26)
+//    var pair : [[Int]] = Array(repeating: Array(repeating: 0, count: NUM_LETTERS), count: NUM_LETTERS);
+//    var count : [[Int]] = Array(repeating: Array(repeating: 0, count: NUM_LETTERS), count: NUM_LETTERS);
+//    do {
+//        var i : Int = 0;
+//        while (i < length) {
+//            let letter : Character = Array(str)[i];
+//            let letterNum : Int = Int(UnicodeScalar(String(letter))!.value) - Int(UnicodeScalar(String("a"))!.value);
+//            do {
+//                var col : Int = 0;
+//                // Update row
+//                while (col < NUM_LETTERS) {
+//                    if (pair[letterNum][col] == Int(UnicodeScalar(String(letter))!.value)) {
+//                        count[letterNum][col] = -1;
+//                    }
+//                    if (count[letterNum][col] != -1) {
+//                        pair[letterNum][col] = Int(UnicodeScalar(String(letter))!.value);
+//                        count[letterNum][col] += 1;
+//                    }
+//                    col += 1;
+//                }
+//            }
+//            do {
+//                var row : Int = 0;
+//                // Update column
+//                while (row < NUM_LETTERS) {
+//                    if (pair[row][letterNum] == Int(UnicodeScalar(String(letter))!.value)) {
+//                        count[row][letterNum] = -1;
+//                    }
+//                    if (count[row][letterNum] != -1) {
+//                        pair[row][letterNum] = Int(UnicodeScalar(String(letter))!.value);
+//                        count[row][letterNum] += 1;
+//                    }
+//                    row += 1;
+//                }
+//            }
+//            i += 1;
+//        }
+//    }
+//    // Find max in "count" array
+//    var maxCount : Int = 0;
+//    do {
+//        var row : Int = 0;
+//        while (row < NUM_LETTERS) {
+//            do {
+//                var col : Int = 0;
+//                while (col < NUM_LETTERS) {
+//                    maxCount = max(maxCount, count[row][col]);
+//                    col += 1;
+//                }
+//            }
+//            row += 1;
+//        }
+//    }
+//
+//    return maxCount
+//}
+
+//alternate("asvkugfiugsalddlasguifgukvsa")
+//alternate("asdcbsdcagfsdbgdfanfghbsfdab")
+//alternate("beabeefeab")
+
+//MARK: -
+//func marsExploration(s: String) -> Int {
+//    let searchStr = String(repeating: "SOS", count: s.count / 3)
+//    let difference = zip(s, searchStr).filter { $0 != $1 }
+//
+//    return difference.count
+//}
+//
+//marsExploration(s: "SOSSPSSQSSOR")
+
+//MARK: -
+
+//func hackerrankInString(s: String) -> String {
+//    var resStr = ""
+//    let range = NSRange(location: 0, length: s.count)
+//    let regex = try! NSRegularExpression(pattern: "h.*a.*c.*k.*e.*r.*r.*a.*n.*k")
+//
+//    let match = regex.firstMatch(in: s, range: range)
+//
+//    if match != nil {
+//        resStr = "YES"
+//    } else {
+//        resStr = "NO"
+//    }
+//
+//    return resStr
+//}
+//
+//hackerrankInString(s: "hhaacckkekraraannk")
+//hackerrankInString(s: "rhbaasdndfsdskgbfefdbrsdfhuyatrjtcrtyytktjjt")
+
+//MARK: -
+
+//func caesarCipher(s: String, k: Int) -> String {
+//    let original = "abcdefghijklmnopqrstuvwxyz"
+//    let sufix = original.suffix(original.count - k)
+//    let prefix = original.prefix(k)
+//    let rotated = sufix + prefix
+//
+//    let pattern = "[a-zA-Z]"
+//    let range = NSRange(location: 0, length: s.count)
+//    let regex = try! NSRegularExpression(pattern: pattern)
+//
+//
+//
+//
+//    return ""
+//
+//}
+
+//func caesarCipher(s: String, k: Int) -> String {
+//    var result = ""
+//
+//    for char in s {
+//        if !char.isLetter {
+//            print(UnicodeScalar(9992)!)
+//            result += "\(char)"
+//            continue
+//        }
+//
+//        if char.isUppercase && char.isLetter {
+//            let ch = UnicodeScalar((Int(char.asciiValue ?? 0) + k - 65) % 26 + 65)!
+//            result += "\(ch)"
+//        } else {
+//            let ch = UnicodeScalar((Int(char.asciiValue ?? 0) + k - 97) % 26 + 97)!
+//            result += "\(ch)"
+//        }
+//    }
+//
+//    return result
+//}
+//
+//caesarCipher(s: "middle-Outz", k: 2)
+
+//MARK: -
+
+//======RegexOld=======
+//func pangrams(s: String) -> String {
+//    let range = NSRange(location: 0, length: s.count)
+//    let regex = try! NSRegularExpression(pattern: "([a-z])(?!.*\\1)")
+//    let matches = regex.matches(in: s.lowercased(), range: range)
+//
+//    if matches.count == 26 {
+//        return "pangram"
+//    } else {
+//        return "not pangram"
+//    }
+//}
+
+//======RegexNew=======
+//func pangrams(s: String) -> String {
+//    let matches = s.lowercased().ranges(of: /([a-z])(?!.*\1)/)
+//
+//    if matches.count == 26 {
+//        return "pangram"
+//    } else {
+//        return "not pangram"
+//    }
+//}
+
+//func pangrams(s: String) -> String {
+////    let setCount = Set(s.lowercased())
+////        .sorted(by: <)
+////        .dropFirst()
+////        .count
+//
+//    if Set(s.lowercased()).count == 27 {
+//        return "pangram"
+//    } else {
+//        return "not pangram"
+//    }
+//}
+
+//pangrams(s: "We promptly judged antique ivory buckles for the prize")
+//pangrams(s: "We promptly judged antique ivory buckles for the next prize")
+
+//MARK: -
+
+//func separateNumbers(s: String) -> Void {
+//    var subStr: Substring = ""
+//    var isValid: Bool = false
+//    var i = 1
+//
+//    while i <= s.count / 2 {
+//        subStr = s.prefix(i)
+//
+//        if subStr.hasPrefix("0") {
+//            break
+//        }
+//
+//        var num = Int(subStr)
+//        var validStr = String(num!)
+//
+//        while validStr.count < s.count {
+//            num! += 1
+//            validStr += String(describing: num!)
+//        }
+//
+//        if s == validStr {
+//            isValid = true
+//            break
+//        }
+//
+//        i += 1
+//    }
+//
+//    print("\(isValid ? "YES \(subStr)" : "NO")")
+//}
+
+//separateNumbers(s: "1234")
+//separateNumbers(s: "91011")
+//separateNumbers(s: "99100")
+//separateNumbers(s: "010203")
+//separateNumbers(s: "999100010001")
