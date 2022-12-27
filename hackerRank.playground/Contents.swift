@@ -1773,3 +1773,73 @@ var greeting = "Hello, playground"
 //separateNumbers(s: "99100")
 //separateNumbers(s: "010203")
 //separateNumbers(s: "999100010001")
+
+//MARK: -
+
+//func funnyString(s: String) -> String {
+//    var res = "Not Funny"
+//    var asciiArr: [Int] = []
+//
+//    for char in s.utf8 {
+//        asciiArr.append(Int(char))
+//    }
+//
+//    var reversedAsciiArr = Array(asciiArr.reversed())
+//
+//    print(asciiArr)
+//    print(reversedAsciiArr)
+//
+//    var diff1: [Int] = []
+//
+//    for i in 0..<asciiArr.count - 1 {
+//        diff1.append(abs(asciiArr[i + 1] - asciiArr[i]))
+//    }
+//
+//    print(diff1)
+//
+//    var diff2: [Int] = []
+//
+//    for i in 0..<reversedAsciiArr.count - 1 {
+//        diff2.append(abs(reversedAsciiArr[i + 1] - reversedAsciiArr[i]))
+//    }
+//
+//    print(diff2)
+//
+//    if diff1 == diff2 {
+//        res = "Funny"
+//    }
+//
+//    return res
+//}
+
+//func funnyString(s: String) -> String {
+//    let sArr = Array(s)
+//    let rArr = Array(s.reversed())
+//    var j = 1
+//
+//
+//    for i in 1..<sArr.count {
+//        if abs(Int(sArr[i].asciiValue!) - Int(sArr[i-1].asciiValue!)) == abs(Int(rArr[i].asciiValue!) - Int(rArr[i-1].asciiValue!)) {
+//            j += 1
+//        }
+//    }
+//    return j == sArr.count ? "Funny" : "Not Funny"
+//}
+
+//funnyString(s: "abc")
+
+//MARK: -
+
+func gemstones(arr: [String]) -> Int {
+    let combined = arr.joined(separator: "")
+    let unique = Array(Set(combined))
+    let result = unique.filter { ch in
+        arr.allSatisfy { str in
+            str.contains(ch)
+        }
+    }
+    
+    return result.count
+}
+
+gemstones(arr: ["basdfj", "asdlkjfdjsa", "bnafvfnsd", "oafhdlasd"])
