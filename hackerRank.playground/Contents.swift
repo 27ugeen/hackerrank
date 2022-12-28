@@ -1830,16 +1830,74 @@ var greeting = "Hello, playground"
 
 //MARK: -
 
-func gemstones(arr: [String]) -> Int {
-    let combined = arr.joined(separator: "")
-    let unique = Array(Set(combined))
-    let result = unique.filter { ch in
-        arr.allSatisfy { str in
-            str.contains(ch)
+//func gemstones(arr: [String]) -> Int {
+//    let combined = arr.joined(separator: "")
+//    let unique = Array(Set(combined))
+//    let result = unique.filter { ch in
+//        arr.allSatisfy { str in
+//            str.contains(ch)
+//        }
+//    }
+//
+//    return result.count
+//}
+//
+//gemstones(arr: ["basdfj", "asdlkjfdjsa", "bnafvfnsd", "oafhdlasd"])
+
+//MARK: -
+
+//func alternatingCharacters(s: String) -> Int {
+//    var sArr = Array(s)
+//    var counter = 0
+//
+//    for i in 0..<sArr.count - 1 {
+//        if sArr[i] == sArr[i+1] {
+//            counter += 1
+//            continue
+//        }
+//    }
+//
+//    return counter
+//}
+//
+//alternatingCharacters(s: "AABBAB")
+
+//MARK: -
+
+//func beautifulBinaryString(b: String) -> Int {
+//    var i = 0
+//    var total = 0
+//    let arr = Array(b)
+//
+//    while i < arr.count - 2 {
+//        if arr[i...i+2] == ["0", "1", "0"] {
+//            total += 1
+//            i += 3
+//        } else {
+//            i += 1
+//        }
+//    }
+//
+//    return total
+//}
+
+func beautifulBinaryString(b: String) -> Int {
+    var i = 0
+    var total = 0
+    let arr = Array(b)
+    
+    while i < arr.count - 2 {
+//        let newArr: [String] = Array(arrayLiteral: String(arr[i...i+2]))
+//        let str = newArr.joined(separator: "")
+        if Array(arrayLiteral: String(arr[i...i+2])).joined(separator: "") == "010" {
+            total += 1
+            i += 3
+        } else {
+            i += 1
         }
     }
-    
-    return result.count
+
+    return total
 }
 
-gemstones(arr: ["basdfj", "asdlkjfdjsa", "bnafvfnsd", "oafhdlasd"])
+beautifulBinaryString(b: "010010010")
