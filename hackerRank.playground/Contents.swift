@@ -1881,23 +1881,148 @@ var greeting = "Hello, playground"
 //    return total
 //}
 
-func beautifulBinaryString(b: String) -> Int {
-    var i = 0
-    var total = 0
-    let arr = Array(b)
+//func beautifulBinaryString(b: String) -> Int {
+//    var i = 0
+//    var total = 0
+//    let arr = Array(b)
+//
+//    while i < arr.count - 2 {
+////        let newArr: [String] = Array(arrayLiteral: String(arr[i...i+2]))
+////        let str = newArr.joined(separator: "")
+//        if Array(arrayLiteral: String(arr[i...i+2])).joined(separator: "") == "010" {
+//            total += 1
+//            i += 3
+//        } else {
+//            i += 1
+//        }
+//    }
+//
+//    return total
+//}
+//
+//beautifulBinaryString(b: "010010010")
+
+//MARK: -
+
+//func theLoveLetterMystery(s: String) -> Int {
+//    var count = 0
+//    var arr = Array(s.utf8)
+////    let cArr = Array(String(decoding: arr, as: UTF8.self))
+//    let length = arr.count
+//    var i = 0
+//
+//    while i < length/2 {
+//        while arr[i] != arr[length-i-1] {
+//            if arr[i] > arr[length-i-1] {
+//                arr[i] -= 1
+//            } else {
+//                arr[length-i-1] -= 1
+//            }
+//            count += 1
+//        }
+//        i += 1
+//    }
+//
+//    return count
+//}
+//
+//theLoveLetterMystery(s: "abc")
+
+//MARK: -
+
+//func palindromeIndex(s: String) -> Int {
+//    var idx = -1
+//    let arr = Array(s)
+//    let len = arr.count
+//    var i = 0
+//    
+//    while i < len/2 {
+//        if arr[i] != arr[len-i-1] && arr[i] == arr[len-i-2] && arr[i + 1] == arr[len-i-3] {
+//            idx = len-i-1
+//            break
+//        } else if arr[i] != arr[len-i-1] {
+//            idx = i
+//            break
+//        } else {
+//            i += 1
+//            continue
+//        }
+//    }
+//    
+//    return idx
+//}
+
+//palindromeIndex(s: "aaab")
+//palindromeIndex(s: "baaa")
+//palindromeIndex(s: "aaa")
+//palindromeIndex(s: "hgygsvlfwcwnswtuhmyaljkqlqjjqlqkjlaymhutwsnwcflvsgygh")
+
+//MARK: -
+
+//bad example
+
+//func anagram(s: String) -> Int {
+//    let len = s.count
+//
+//    if len%2 != 0 {
+//        return -1
+//    }
+//
+//    let words = Array(s)
+//    var halfLen = len/2
+//    var firstHalf = words[0..<halfLen]
+//    var secondHalf = words[halfLen..<words.count]
+//
+//    for i in 0..<firstHalf.count {
+//        if secondHalf.contains(firstHalf[i]) {
+//            secondHalf.remove(at: secondHalf.firstIndex(of: firstHalf[i]) ?? 0)
+//        }
+//    }
+//
+//    if !secondHalf.isEmpty {
+//        return secondHalf.count
+//    } else {
+//        return 0
+//    }
+//}
+
+//good example
+
+func anagram(s: String) -> Int {
+    let len = s.count
     
-    while i < arr.count - 2 {
-//        let newArr: [String] = Array(arrayLiteral: String(arr[i...i+2]))
-//        let str = newArr.joined(separator: "")
-        if Array(arrayLiteral: String(arr[i...i+2])).joined(separator: "") == "010" {
-            total += 1
-            i += 3
-        } else {
-            i += 1
+    if len%2 != 0 {
+        return -1
+    }
+    
+    let words = Array(s.utf8)
+    let halfLen = len/2
+    let firstHalf = Array(words[0..<halfLen])
+    let secondHalf = Array(words[halfLen..<len])
+    var count = 0
+    var charCount = Array(repeating: 0, count: 26)
+    let aUnicode = Int(Unicode.Scalar("a").value)
+    
+    for i in 0..<firstHalf.count {
+        charCount[Int(firstHalf[i]) - aUnicode] += 1
+    }
+    
+    for i in 0..<secondHalf.count {
+        charCount[Int(secondHalf[i]) - aUnicode] -= 1
+    }
+    
+    
+    for i in 0..<26 {
+        if charCount[i] != 0 {
+            count += abs(charCount[i])
         }
     }
-
-    return total
+    
+    return count/2
 }
 
-beautifulBinaryString(b: "010010010")
+//anagram(s: "qqqbbb")
+//anagram(s: "xaxbbbxx")
+//anagram(s: "fdhlvosfpafhalll")
+anagram(s: "hhpddlnnsjfoyxpciioigvjqzfbpllssuj")
+//anagram(s: "dnqaurlplofnrtmh")
